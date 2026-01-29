@@ -304,17 +304,7 @@ public class PlayerController : MonoBehaviour
             rb.linearVelocity = velocity;
             jump = false;
         }
-
-<<<<<<< HEAD
-        if (jump && jumpcounter > 0 && !grounded)
-        {
-            Vector3 velocity = rb.linearVelocity;
-            velocity.y = jumpForce*2;
-            rb.linearVelocity = velocity;
-            jumpcounter -= 1;
-            jump = false;
-        }
-=======
+    }
 
     public void OnHit(bool hit, Collider other, Collider hitbox)
     {
@@ -325,14 +315,11 @@ public class PlayerController : MonoBehaviour
 
         Vector3 direction;
 
-        
-
         direction = transform.TransformDirection(direction);
 
         rb.linearVelocity = Vector3.zero;
         rb.AddForce(other.transform.position * jumpForce * 10, ForceMode.Impulse);
         hitbox.enabled = false;
->>>>>>> 832a71c7f531d28c58a2f6679abe1abf7fba423d
     }
 }
 
