@@ -84,6 +84,7 @@ public class PlayerController : MonoBehaviour
         _walk = Assets.FindAction("Player/Walk");
         _LegJump = Assets.FindAction("Player/LegJump");
 
+
         _move.started += OnMove;
         _move.performed += OnMove;
         _move.canceled += OnMove;
@@ -114,7 +115,7 @@ public class PlayerController : MonoBehaviour
         _LegJump.canceled += OnLegJump;
         _LegJump.Enable();
 
-
+       
     }
     private void OnDisable()
     {
@@ -147,6 +148,8 @@ public class PlayerController : MonoBehaviour
         _LegJump.performed -= OnLegJump;
         _LegJump.canceled -= OnLegJump;
         _LegJump.Disable();
+
+      
     }
     
     private void OnMove(InputAction.CallbackContext context)
@@ -177,7 +180,7 @@ public class PlayerController : MonoBehaviour
         if (LegJump && grounded)
         {
             RaycastHit hit;
-            if (Physics.Raycast(Head.transform.position, Head.transform.forward, out hit, 5f, Jumplayer))
+            if (Physics.Raycast(Head.transform.position, Head.transform.forward, out hit, 7.5f, Jumplayer))
             {
                 leganimator.SetTrigger("Kick");
                 rb.AddForce(Head.transform.forward * -jumpingpower*100, ForceMode.Impulse);
@@ -186,7 +189,7 @@ public class PlayerController : MonoBehaviour
 
         
     }
-
+    
     //Update Cycles
     void Awake()
     {

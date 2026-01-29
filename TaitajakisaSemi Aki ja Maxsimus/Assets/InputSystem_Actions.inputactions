@@ -43,7 +43,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "SecondAttack",
+                    "name": "Lunge",
                     "type": "Button",
                     "id": "526b8323-2de1-4c9c-b000-49165a113761",
                     "expectedControlType": "",
@@ -195,6 +195,17 @@
                 },
                 {
                     "name": "",
+                    "id": "638309f4-115c-4248-a6e5-774d36d5187d",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LegJump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "f2e9ba44-c423-42a7-ad56-f20975884794",
                     "path": "<Keyboard>/leftShift",
                     "interactions": "",
@@ -244,7 +255,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "SecondAttack",
+                    "action": "Lunge",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
