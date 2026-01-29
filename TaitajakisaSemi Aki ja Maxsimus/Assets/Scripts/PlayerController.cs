@@ -177,7 +177,7 @@ public class PlayerController : MonoBehaviour
     {
         bool LegJump = context.ReadValueAsButton();
 
-        if (LegJump && grounded)
+        if (LegJump)
         {
             RaycastHit hit;
             if (Physics.Raycast(Head.transform.position, Head.transform.forward, out hit, 7.5f, Jumplayer))
@@ -306,7 +306,7 @@ public class PlayerController : MonoBehaviour
         //Check Ground
         RaycastHit hit;
         rayGroundOffset = new Vector3(transform.position.x, transform.position.y - playerHeight / 2f + playerCRadius, transform.position.z);
-        grounded = Physics.SphereCast(rayGroundOffset, playerCRadius - 0.01f, Vector3.down, out hit, 0.05f, LayerMask.GetMask("Default", "Ground", "Roof", "Vaultable"));
+        grounded = Physics.SphereCast(rayGroundOffset, playerCRadius - 0.01f, Vector3.down, out hit, 0.05f, LayerMask.GetMask("Default", "Ground", "Roof", "Vaultable", "Jump"));
         //========//
 
         //if (grounded == false) { jump = false; }
