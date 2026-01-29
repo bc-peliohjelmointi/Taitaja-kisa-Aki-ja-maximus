@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Colliderhitboxscript : MonoBehaviour
 {
-    private Collider hitbox;
+    public Collider hitbox;
     PlayerController controller;
     private void Awake()
     {
@@ -11,7 +11,7 @@ public class Colliderhitboxscript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Default"))
+        if (other.CompareTag("Ground"))
         {
             controller.OnHit(true,other,hitbox);
         }
