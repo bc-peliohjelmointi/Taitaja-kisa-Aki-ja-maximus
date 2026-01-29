@@ -134,13 +134,6 @@ public class UIScript : MonoBehaviour
     }
     void Update()
     {
-        int minutes = Mathf.FloorToInt(Timer / 60f);
-        int seconds = Mathf.FloorToInt(Timer % 60f);
-        int milliseconds = Mathf.FloorToInt((Timer * 1000f) % 1000f);
-
-        h1ghScore.text = $"Fastest Time: {minutes:00}:{seconds:00}.{milliseconds}";
-
-
         h1ghScore.text = $"Fastest Time: {Score.highScore}";
     }
 }
