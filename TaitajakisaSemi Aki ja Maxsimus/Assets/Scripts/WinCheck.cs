@@ -2,13 +2,17 @@ using UnityEngine;
 
 public class WinCheck : MonoBehaviour
 {
-    void Start()
+    private void OnTriggerEnter(Collider other)
     {
-        
-    }
+        if (!other.CompareTag("Win"))
+            return;
 
-    void Update()
-    {
-        
+        TimerAndVelocity timer = other.GetComponent<TimerAndVelocity>();
+
+        if (timer != null)
+        {
+            timer.FinishRun();
+            Debug.Log("Highscore saved: " + timer.Timer);
+        }
     }
 }
