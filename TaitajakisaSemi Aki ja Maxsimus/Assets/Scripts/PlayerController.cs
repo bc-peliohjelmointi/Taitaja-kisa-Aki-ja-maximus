@@ -23,7 +23,9 @@ public class PlayerController : MonoBehaviour
     [Header("Jumping")]
     [SerializeField] private bool allowJumping = true;
     [SerializeField] private float jumpForce = 5f;
-    [SerializeField] private int MaxDoubleJumps = 2;
+    public float jumpingpower;
+    [SerializeField] Animator leganimator;
+    public LayerMask Jumplayer;
     [Header("Crouching")]
     [SerializeField] private bool allowCrouching = true;
     [SerializeField] private float crouchingSpeed = 2f;
@@ -146,7 +148,7 @@ public class PlayerController : MonoBehaviour
         _LegJump.canceled -= OnLegJump;
         _LegJump.Disable();
     }
-
+    
     private void OnMove(InputAction.CallbackContext context)
     {
         movement = context.ReadValue<Vector2>();
@@ -171,8 +173,17 @@ public class PlayerController : MonoBehaviour
     private void OnLegJump(InputAction.CallbackContext context)
     {
         bool LegJump = context.ReadValueAsButton();
-        
-            
+
+        if (LegJump && grounded)
+        {
+            RaycastHit hit;
+            if (Physics.Raycast(Head.transform.position, Head.transform.forward, out hit, 5f, Jumplayer))
+            {
+                leganimator.SetTrigger("Kick");
+                rb.AddForce(Head.transform.forward * -jumpingpower*100, ForceMode.Impulse);
+            }
+        }
+
         
     }
 
@@ -296,7 +307,7 @@ public class PlayerController : MonoBehaviour
         //========//
 
         //if (grounded == false) { jump = false; }
-        if (grounded) {jumpcounter = MaxDoubleJumps;}
+        
         if (jump && grounded)
         {
             Vector3 velocity = rb.linearVelocity;
@@ -306,21 +317,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void OnHit(bool hit, Collider other, Collider hitbox)
-    {
-        if (!hit) return;
-        /*
-        Rigidbody rb = other.attachedRigidbody;
-        if (rb == null) return;
-
-        Vector3 direction;
-
-        direction = transform.TransformDirection(direction);
-        */
-        rb.linearVelocity = Vector3.zero;
-        rb.AddForce(other.transform.position * jumpForce * 10, ForceMode.Impulse);
-        hitbox.enabled = false;
-    }
+    
 }
 
 
