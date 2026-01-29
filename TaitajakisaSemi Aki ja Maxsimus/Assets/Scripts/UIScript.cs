@@ -2,10 +2,35 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
+
+public static class Score
+{
+    private const string HighScoreKey = "HighScore";
+
+    public static float highScore;
+
+    public static void Load()
+    {
+        highScore = PlayerPrefs.GetFloat(HighScoreKey, 0f);
+    }
+
+    public static void Set(float time)
+    {
+        if (highScore == 0f || time < highScore)
+        {
+            highScore = time;
+            PlayerPrefs.SetFloat(HighScoreKey, highScore);
+            PlayerPrefs.Save();
+        }
+    }
+}
 
 public class UIScript : MonoBehaviour
 {
     public bool MainMenuEnable;
+
+    public TextMeshProUGUI h1ghScore;
 
     public InputActionAsset Assets;
 
@@ -76,6 +101,8 @@ public class UIScript : MonoBehaviour
 
     void Start()
     {
+        Score.Load();
+
         if (MainMenuEnable)
         {
             Time.timeScale = 0f;
@@ -107,5 +134,9 @@ public class UIScript : MonoBehaviour
         Paused = false;
 
         OpenCloseMenu();
+    }
+    void Update()
+    {
+        h1ghScore.text = $"Fastest Time: {Score.highScore}";
     }
 }
