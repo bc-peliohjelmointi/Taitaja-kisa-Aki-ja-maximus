@@ -2,10 +2,11 @@ using UnityEngine;
 
 public class WinCheck : MonoBehaviour
 {
+    private bool won = false;
+    public GameObject quit;
+
     private void OnTriggerEnter(Collider other)
     {
-        public GameObject screen;
-
         if (!other.CompareTag("Win"))
             return;
 
@@ -15,6 +16,23 @@ public class WinCheck : MonoBehaviour
         {
             timer.FinishRun();
             Debug.Log("Highscore saved: " + timer.Timer);
+            won = true;
+
+            Time.timeScale = 0f; 
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+
+            quit.SetActive(true);
+        }
+    }
+
+    void Update()
+    {
+        if (won)
+        {
+             Time.timeScale = 0f;
+             Cursor.lockState = CursorLockMode.None;
+             Cursor.visible = true;
         }
     }
 }
