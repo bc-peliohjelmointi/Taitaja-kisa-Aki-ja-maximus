@@ -4,6 +4,8 @@ public class WinCheck : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
+        public GameObject screen;
+
         if (!other.CompareTag("Win"))
             return;
 

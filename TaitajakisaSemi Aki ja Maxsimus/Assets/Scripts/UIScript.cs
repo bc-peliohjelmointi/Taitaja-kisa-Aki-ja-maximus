@@ -103,6 +103,8 @@ public class UIScript : MonoBehaviour
     {
         Score.Load();
 
+        UpdateHighScoreUI();
+
         if (MainMenuEnable)
         {
             Time.timeScale = 0f;
@@ -135,8 +137,16 @@ public class UIScript : MonoBehaviour
 
         OpenCloseMenu();
     }
-    void Update()
+
+
+    public void UpdateHighScoreUI()
     {
-        h1ghScore.text = $"Fastest Time: {Score.highScore}";
+        float time = Score.highScore;
+
+        int minutes = Mathf.FloorToInt(time / 60f);
+        int seconds = Mathf.FloorToInt(time % 60f);
+        int milliseconds = Mathf.FloorToInt((time * 1000f) % 1000f);
+
+        h1ghScore.text = $"Best Time: {minutes:00}:{seconds:00}.{milliseconds:000}";
     }
 }
