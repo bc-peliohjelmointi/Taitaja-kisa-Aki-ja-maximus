@@ -9,7 +9,6 @@ public class TimerAndVelocity : MonoBehaviour
     public TextMeshProUGUI Velo;
 
     public float Timer;
-    private bool finished = false;
 
     void Awake()
     {
@@ -27,14 +26,5 @@ public class TimerAndVelocity : MonoBehaviour
 
         float speed = rb.linearVelocity.magnitude;
         Velo.text = $"V: {speed:F2}";
-    }
-
-    public void FinishRun()
-    {
-        if (finished) return;
-
-        finished = true;
-        Score.Set(Timer);
-        Debug.Log("Run finished! Highscore set: " + Timer);
     }
 }
