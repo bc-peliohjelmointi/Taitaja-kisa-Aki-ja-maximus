@@ -66,9 +66,6 @@ public class UIScript : MonoBehaviour
                 Paused = false;
             }
 
-
-
-
         OpenCloseMenu();
     }
 
