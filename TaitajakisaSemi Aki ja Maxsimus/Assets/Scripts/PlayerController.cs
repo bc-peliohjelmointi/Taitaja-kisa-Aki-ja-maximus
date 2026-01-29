@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool allowJumping = true;
     [SerializeField] private float jumpForce = 5f;
     public float jumpingpower;
+    [SerializeField] AudioSource jumpSound;
     [SerializeField] Animator leganimator;
     public LayerMask Jumplayer;
     [Header("Crouching")]
@@ -183,6 +184,7 @@ public class PlayerController : MonoBehaviour
             if (Physics.Raycast(Head.transform.position, Head.transform.forward, out hit, 7.5f, Jumplayer))
             {
                 leganimator.SetTrigger("Kick");
+                jumpSound.Play();
                 rb.AddForce(Head.transform.forward * -jumpingpower*100, ForceMode.Impulse);
             }
         }
