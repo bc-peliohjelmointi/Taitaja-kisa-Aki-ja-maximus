@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
     [Header("Jumping")]
     [SerializeField] private bool allowJumping = true;
     [SerializeField] private float jumpForce = 5f;
+    [SerializeField] private int MaxDoubleJumps = 2;
     [Header("Crouching")]
     [SerializeField] private bool allowCrouching = true;
     [SerializeField] private float crouchingSpeed = 2f;
@@ -32,6 +33,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float minCameraAngle;
     private float cameraAngleX;
     private float cameraAngleY;
+
+
 
     //<============> Privates and Variables not shown in editor <============>
 
@@ -47,7 +50,7 @@ public class PlayerController : MonoBehaviour
     bool grounded;
     bool roof;
     bool crouched;
-
+    int jumpcounter;
     //Vector3's
 
     private Vector3 originalCenter;
@@ -68,6 +71,7 @@ public class PlayerController : MonoBehaviour
     private InputAction _crouch;
     private InputAction _jump;
     private InputAction _walk;
+    private InputAction _LegJump;
 
     private void OnEnable()
     {
@@ -76,6 +80,7 @@ public class PlayerController : MonoBehaviour
         _crouch = Assets.FindAction("Player/Crouch");
         _jump = Assets.FindAction("Player/Jump");
         _walk = Assets.FindAction("Player/Walk");
+        _LegJump = Assets.FindAction("Player/LegJump");
 
         _move.started += OnMove;
         _move.performed += OnMove;
@@ -101,6 +106,13 @@ public class PlayerController : MonoBehaviour
         _walk.performed += OnWalk;
         _walk.canceled += OnWalk;
         _walk.Enable();
+
+        _LegJump.started += OnLegJump;
+        _LegJump.performed += OnLegJump;
+        _LegJump.canceled += OnLegJump;
+        _LegJump.Enable();
+
+
     }
     private void OnDisable()
     {
@@ -128,6 +140,11 @@ public class PlayerController : MonoBehaviour
         _walk.performed -= OnWalk;
         _walk.canceled -= OnWalk;
         _walk.Disable();
+
+        _LegJump.started -= OnLegJump;
+        _LegJump.performed -= OnLegJump;
+        _LegJump.canceled -= OnLegJump;
+        _LegJump.Disable();
     }
 
     private void OnMove(InputAction.CallbackContext context)
@@ -150,6 +167,15 @@ public class PlayerController : MonoBehaviour
     {
         walk = context.ReadValueAsButton();
     }
+
+    private void OnLegJump(InputAction.CallbackContext context)
+    {
+        bool LegJump = context.ReadValueAsButton();
+        
+            
+        
+    }
+
     //Update Cycles
     void Awake()
     {
@@ -269,13 +295,22 @@ public class PlayerController : MonoBehaviour
         grounded = Physics.SphereCast(rayGroundOffset, playerCRadius - 0.01f, Vector3.down, out hit, 0.05f, LayerMask.GetMask("Default", "Ground", "Roof", "Vaultable"));
         //========//
 
-        if (grounded == false) { jump = false; }
-
+        //if (grounded == false) { jump = false; }
+        if (grounded) {jumpcounter = MaxDoubleJumps;}
         if (jump && grounded)
         {
             Vector3 velocity = rb.linearVelocity;
             velocity.y = jumpForce;
             rb.linearVelocity = velocity;
+            jump = false;
+        }
+
+        if (jump && jumpcounter > 0 && !grounded)
+        {
+            Vector3 velocity = rb.linearVelocity;
+            velocity.y = jumpForce*2;
+            rb.linearVelocity = velocity;
+            jumpcounter -= 1;
             jump = false;
         }
     }
