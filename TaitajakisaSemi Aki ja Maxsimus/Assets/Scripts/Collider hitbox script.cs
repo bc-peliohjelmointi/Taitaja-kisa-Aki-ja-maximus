@@ -11,8 +11,12 @@ public class Colliderhitboxscript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Default"))
+
+
+        Debug.Log("no leg");
+        if (other.CompareTag("Ground"))
         {
+            Debug.Log("Jump no leg");
             controller.OnHit(true,other,hitbox);
         }
     }
