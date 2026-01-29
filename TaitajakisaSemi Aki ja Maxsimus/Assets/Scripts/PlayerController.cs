@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool allowJumping = true;
     [SerializeField] private float jumpForce = 5f;
     [SerializeField] private int MaxDoubleJumps = 2;
+    [SerializeField] Animator Leganimator;
     [Header("Crouching")]
     [SerializeField] private bool allowCrouching = true;
     [SerializeField] private float crouchingSpeed = 2f;
@@ -35,7 +36,6 @@ public class PlayerController : MonoBehaviour
     private float cameraAngleY;
 
 
-
     //<============> Privates and Variables not shown in editor <============>
 
     //Inputs
@@ -44,7 +44,7 @@ public class PlayerController : MonoBehaviour
     bool crouch;
     bool jump;
     bool walk;
-
+    bool LegJump;
     //Is something
 
     bool grounded;
@@ -170,10 +170,13 @@ public class PlayerController : MonoBehaviour
 
     private void OnLegJump(InputAction.CallbackContext context)
     {
-        bool LegJump = context.ReadValueAsButton();
-        
-            
-        
+        LegJump = context.ReadValueAsButton();
+        if (LegJump) 
+        {
+            Leganimator.SetTrigger("Kick");
+            rb.AddForce(Vector3.up * jumpForce,ForceMode.Impulse);
+        }   
+         
     }
 
     //Update Cycles
@@ -193,7 +196,11 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (allowJumping) { Jumping(); }
+        if (allowJumping) 
+        {
+            Jumping();
+            LegJumping();
+        }
         Moving();
         if (allowCrouching) { Crouching(); }
     }
@@ -296,23 +303,33 @@ public class PlayerController : MonoBehaviour
         //========//
 
         //if (grounded == false) { jump = false; }
-        if (grounded) {jumpcounter = MaxDoubleJumps;}
         if (jump && grounded)
         {
+
             Vector3 velocity = rb.linearVelocity;
             velocity.y = jumpForce;
             rb.linearVelocity = velocity;
             jump = false;
         }
+    }
 
-        if (jump && jumpcounter > 0 && !grounded)
-        {
-            Vector3 velocity = rb.linearVelocity;
-            velocity.y = jumpForce*2;
-            rb.linearVelocity = velocity;
-            jumpcounter -= 1;
-            jump = false;
-        }
+
+    public void OnHit(bool hit, Collider other, Collider hitbox)
+    {
+        if (!hit) return;
+
+        Rigidbody rb = other.attachedRigidbody;
+        if (rb == null) return;
+
+        Vector3 direction;
+
+        
+
+        direction = transform.TransformDirection(direction);
+
+        rb.linearVelocity = Vector3.zero;
+        rb.AddForce(direction * jumpForce * 10, ForceMode.Impulse);
+        hitbox.enabled = false;
     }
 }
 
