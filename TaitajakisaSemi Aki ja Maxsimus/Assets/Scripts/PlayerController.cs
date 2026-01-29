@@ -23,8 +23,7 @@ public class PlayerController : MonoBehaviour
     [Header("Jumping")]
     [SerializeField] private bool allowJumping = true;
     [SerializeField] private float jumpForce = 5f;
-    [SerializeField] Animator leganimator;
-    [SerializeField] Collider legcollider;
+    [SerializeField] private int MaxDoubleJumps = 2;
     [Header("Crouching")]
     [SerializeField] private bool allowCrouching = true;
     [SerializeField] private float crouchingSpeed = 2f;
@@ -172,12 +171,8 @@ public class PlayerController : MonoBehaviour
     private void OnLegJump(InputAction.CallbackContext context)
     {
         bool LegJump = context.ReadValueAsButton();
-        if (LegJump)
-        {
-            legcollider.enabled = true;
-            leganimator.SetTrigger("Kick");
-        }
-       
+        
+            
         
     }
 
@@ -301,7 +296,7 @@ public class PlayerController : MonoBehaviour
         //========//
 
         //if (grounded == false) { jump = false; }
-        
+        if (grounded) {jumpcounter = MaxDoubleJumps;}
         if (jump && grounded)
         {
             Vector3 velocity = rb.linearVelocity;
@@ -315,14 +310,14 @@ public class PlayerController : MonoBehaviour
     {
         if (!hit) return;
 
-        /*Rigidbody rb = other.attachedRigidbody;
+        Rigidbody rb = other.attachedRigidbody;
         if (rb == null) return;
-        */
+
         Vector3 direction;
 
-        //direction = transform.TransformDirection(direction);
-        Debug.Log("jump using leg");
-        
+        direction = transform.TransformDirection(direction);
+
+        rb.linearVelocity = Vector3.zero;
         rb.AddForce(other.transform.position * jumpForce * 10, ForceMode.Impulse);
         hitbox.enabled = false;
     }
