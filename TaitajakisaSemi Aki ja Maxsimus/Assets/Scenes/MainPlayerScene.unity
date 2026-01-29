@@ -270,6 +270,7 @@ GameObject:
   - component: {fileID: 142183907}
   - component: {fileID: 142183908}
   - component: {fileID: 142183909}
+  - component: {fileID: 142183910}
   m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
@@ -312,15 +313,15 @@ MonoBehaviour:
   rb: {fileID: 142183909}
   PhyMaterial: {fileID: 13400000, guid: 34288b4d0e3adea4d89d57dde87a14bc, type: 2}
   movingSpeed: 5
-  acceleration: 20
+  acceleration: 35
   MouseSensitivity: 0.25
   allowJumping: 1
   jumpForce: 4
   allowCrouching: 1
   crouchingSpeed: 2.5
   cameraSmooth: 30
-  maxCameraAngle: 90
-  minCameraAngle: -90
+  maxCameraAngle: 120
+  minCameraAngle: -120
   Assets: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
 --- !u!136 &142183908
 CapsuleCollider:
@@ -372,6 +373,21 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 2
+--- !u!114 &142183910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 142183905}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 579ea07ec5bc9f645bb7f99bb84b4321, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TimerAndVelocity
+  timerText: {fileID: 1542688298}
+  Velo: {fileID: 482418174}
+  Timer: 0
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
