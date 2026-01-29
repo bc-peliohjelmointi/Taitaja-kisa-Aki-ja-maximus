@@ -138,7 +138,6 @@ public class UIScript : MonoBehaviour
         OpenCloseMenu();
     }
 
-
     public void UpdateHighScoreUI()
     {
         float time = Score.highScore;
