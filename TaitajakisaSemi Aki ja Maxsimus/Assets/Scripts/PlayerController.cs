@@ -306,7 +306,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void OnHit(bool hit, Collider other, Collider hitbox)
+    /*public void OnHit(bool hit, Collider other, Collider hitbox)
     {
         if (!hit) return;
 
@@ -321,6 +321,7 @@ public class PlayerController : MonoBehaviour
         rb.AddForce(other.transform.position * jumpForce * 10, ForceMode.Impulse);
         hitbox.enabled = false;
     }
+    */
 }
 
 
