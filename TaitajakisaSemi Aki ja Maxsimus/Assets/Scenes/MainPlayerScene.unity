@@ -317,7 +317,7 @@ MonoBehaviour:
   MouseSensitivity: 0.25
   allowJumping: 1
   jumpForce: 4
-  MaxDoubleJumps: 2
+  MaxDoubleJumps: 1
   allowCrouching: 1
   crouchingSpeed: 2.5
   cameraSmooth: 30
