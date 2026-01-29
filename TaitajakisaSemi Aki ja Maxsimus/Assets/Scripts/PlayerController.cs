@@ -328,7 +328,7 @@ public class PlayerController : MonoBehaviour
         direction = transform.TransformDirection(direction);
 
         rb.linearVelocity = Vector3.zero;
-        rb.AddForce(direction * jumpForce * 10, ForceMode.Impulse);
+        rb.AddForce(other.transform.position * jumpForce * 10, ForceMode.Impulse);
         hitbox.enabled = false;
     }
 }
