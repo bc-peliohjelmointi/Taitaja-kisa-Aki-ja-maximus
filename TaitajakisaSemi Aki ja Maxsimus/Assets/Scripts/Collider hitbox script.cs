@@ -17,7 +17,6 @@ public class Colliderhitboxscript : MonoBehaviour
         if (other.CompareTag("Ground"))
         {
             Debug.Log("Jump no leg");
-            controller.OnHit(true,other,hitbox);
         }
     }
 }
