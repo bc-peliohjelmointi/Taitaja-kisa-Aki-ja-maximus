@@ -309,14 +309,14 @@ public class PlayerController : MonoBehaviour
     public void OnHit(bool hit, Collider other, Collider hitbox)
     {
         if (!hit) return;
-
+        /*
         Rigidbody rb = other.attachedRigidbody;
         if (rb == null) return;
 
         Vector3 direction;
 
         direction = transform.TransformDirection(direction);
-
+        */
         rb.linearVelocity = Vector3.zero;
         rb.AddForce(other.transform.position * jumpForce * 10, ForceMode.Impulse);
         hitbox.enabled = false;
